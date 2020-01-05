@@ -93,10 +93,10 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
        isDarkMode:true
     ),
   
-  6. With Bottom Lines: 
+  6. With Bottom Boxes: 
   
      ProfilePageShimmer(      
-       hasBottomLines: true,      
+       hasBottomBox: true,      
     ),
     
   7. Combination of all options
