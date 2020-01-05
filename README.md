@@ -1,14 +1,12 @@
 # flutter_shimmer
 
-A new Flutter package project.
+flutter_shimmer package for creating Shimmer effect that indicate a loading status, so instead of using ProgressBar or usual loader use Shimmer for a better design and user interface. 
 
-## Getting Started
+### Show some :heart: and star the repo to support the project
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+| Shimmer Mode                 | Screenshot                                               | Code                                       |
+| ---------------------------- | -------------------------------------------------------- | ------------------------------------------ |
+| Light Mode Shimmer           | ![](./screenshots/1.gif)                                 |                                            |
+| Dark Mode Shimmer            | ![](./screenshots/2.gif)                                 |                                            | 
+| Purplish Mode Shimmer        | ![](./screenshots/3.gif)                                 |                                            |
+| Purplish(Dark) Mode Shimmer  | ![](./screenshots/3.gif)                                 |                                            |
