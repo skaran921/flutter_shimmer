@@ -71,3 +71,40 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
        isDarkMode: true,
     ),
  ```
+ 
+  # ProfilePageShimmer
+ ```
+   1. Light Mode
+     ProfilePageShimmer(),
+   
+   2. Dark Mode
+     ProfilePageShimmer( isDarkMode: true,),
+    
+   3. PurplishMode with light Background
+   
+      ProfilePageShimmer(
+       isPurplishMode: true,      
+    ),
+    
+   5. PurplishMode with dark Background
+   
+      ProfilePageShimmer(
+       isPurplishMode: true,
+       isDarkMode:true
+    ),
+  
+  6. With Bottom Lines: 
+  
+     ProfilePageShimmer(      
+       hasBottomLines: true,      
+    ),
+    
+  7. Combination of all options
+  
+     ProfilePageShimmer(
+       isPurplishMode: true,
+       hasBottomLines: true,
+       isDarkMode: true,
+    ),
+ ```
+
