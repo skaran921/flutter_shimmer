@@ -145,3 +145,40 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
     ),
  ```
 
+
+# 4. ListTileShimmer
+ ```
+   1. Light Mode
+     ListTileShimmer(),
+   
+   2. Dark Mode
+     ListTileShimmer( isDarkMode: true,),
+    
+   3. PurplishMode with light Background
+   
+      ListTileShimmer(
+       isPurplishMode: true,      
+    ),
+    
+   5. PurplishMode with dark Background
+   
+      ListTileShimmer(
+       isPurplishMode: true,
+       isDarkMode:true
+    ),
+  
+  6. With Bottom Lines: 
+  
+     ListTileShimmer(      
+       hasBottomLines: true,      
+    ),
+    
+  7. Combination of all options
+  
+     ListTileShimmer(
+       isPurplishMode: true,
+       hasBottomLines: true,
+       isDarkMode: true,
+    ),
+ ```
+
