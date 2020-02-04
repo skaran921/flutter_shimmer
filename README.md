@@ -31,7 +31,7 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
 
 ```
  #Color Mode
-     There are three color mode in the flutter_shimmer package
+     There are four color mode in the flutter_shimmer package
       1. Light Mode
       2. Dark Mode
       3. Purplish Mode
