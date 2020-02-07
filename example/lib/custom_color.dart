@@ -89,8 +89,7 @@ class _CustomColorsState extends State<CustomColors> {
           ),
         ),
         ProfileShimmer(
-          // isPurplishMode: true,
-          // isDarkMode: true,
+         
           hasCustomColors: true,
           colors: [Color(0xFF651fff), Color(0xFF834bff), Color(0xFF4615b2)],
         ),
