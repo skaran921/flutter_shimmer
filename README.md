@@ -4,15 +4,18 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
 
 ### Show some :heart: and star the repo to support the project
 
-| # Shimmer Mode                 | # Screenshot             | # Code Example                                         |
-| ------------------------------ | ------------------------ | ------------------------------------------------------ |
-| # Light Mode Shimmer           | ![](./screenshots/1.gif) | ListTileShimmer()                                      |
-| # Dark Mode Shimmer            | ![](./screenshots/2.gif) | ListTileShimmer(isDarkMode: true)                      |
-| # Purplish Mode Shimmer        | ![](./screenshots/3.gif) | ListTileShimmer(isPurplishMode: true)                  |
-| # Purplish(Dark) Mode Shimmer  | ![](./screenshots/4.gif) | ListTileShimmer(isPurplishMode: true,isDarkMode: true) |
-| # hasCustomColors Mode Shimmer | ![](./screenshots/5.gif) | ProfileShimmer(                                        |
+| # Shimmer Mode                | # Screenshot             | # Code Example                                         |
+| ----------------------------- | ------------------------ | ------------------------------------------------------ |
+| # Light Mode Shimmer          | ![](./screenshots/1.gif) | ListTileShimmer()                                      |
+| # Dark Mode Shimmer           | ![](./screenshots/2.gif) | ListTileShimmer(isDarkMode: true)                      |
+| # Purplish Mode Shimmer       | ![](./screenshots/3.gif) | ListTileShimmer(isPurplishMode: true)                  |
+| # Purplish(Dark) Mode Shimmer | ![](./screenshots/4.gif) | ListTileShimmer(isPurplishMode: true,isDarkMode: true) |
+| # CustomColor Mode            | ![](./screenshots/5.gif) | ProfileShimmer(hasCustomColors: true,                  |
 
-          // Step 1: set hasCustomColors property to try
+          colors: [Color(0xFF651fff), Color(0xFF834bff), Color(0xFF4615b2)],
+        ),                                      |
+
+          // Step 1: set hasCustomColors property to true
           hasCustomColors: true,
           // Step 2: give 3 colors to colors property
           colors: [
@@ -31,7 +34,7 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
 
 ```
  #Color Mode
-     There are four color mode in the flutter_shimmer package
+     There are three color mode in the flutter_shimmer package
       1. Light Mode
       2. Dark Mode
       3. Purplish Mode

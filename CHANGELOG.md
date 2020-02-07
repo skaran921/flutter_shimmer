@@ -9,3 +9,7 @@
 ## [1.1.0] - TODO: Add release date.
 
 - TODO: Custom Colors Feature added.
+
+## [1.1.1] - TODO: Add release date.
+
+- TODO: Type Mistake remove.
