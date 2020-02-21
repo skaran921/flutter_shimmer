@@ -144,6 +144,7 @@ Decoration radiusBoxDecoration({
 //  ***************************ProfileShimmer******************************
 // *[isRectBox] when it is true then it will show Rectancle shape else(false) show circle shape by defult its value false
 // *[isDarkMode]when it is true then it will use black bg color otherwise it use transparent color by defult its value false
+// *[isDisabledAvatar]: when it is true then it will hide circle avatar by default it's false
 // *[beginAlign] it will set the begin value for gradientColor by defult its value Alignment.topLeft
 // *[endAlign]   it will set the end value for gradientColor by defult its value Alignment.bottomRight
 // *[hasBottomLines] when it is true then it will show bottom lines otherwise its hide the lines by defult its value false
@@ -151,11 +152,11 @@ Decoration radiusBoxDecoration({
 // *[margin] it wiil set the margin of parent container by default its value 16.0 from all side(left,right,top,bottom)
 //
 //
-//
 class ProfileShimmer extends StatefulWidget {
   final bool isRectBox;
   final bool isDarkMode;
   final bool isPurplishMode;
+  final bool isDisabledAvatar;
   final bool hasCustomColors;
   final List<Color> colors;
   final AlignmentGeometry beginAlign;
@@ -176,6 +177,7 @@ class ProfileShimmer extends StatefulWidget {
     this.isPurplishMode = false,
     this.hasCustomColors = false,
     this.colors = defultColors,
+    this.isDisabledAvatar = false,
   }) : super(key: key);
   @override
   _ProfileShimmerState createState() => _ProfileShimmerState();
@@ -222,19 +224,21 @@ class _ProfileShimmerState extends State<ProfileShimmer>
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: width * 0.14,
-                    width: width * 0.14,
-                    decoration: customBoxDecoration(
-                        animation: _animation,
-                        isRectBox: widget.isRectBox,
-                        isPurplishMode: widget.isPurplishMode,
-                        isDarkMode: widget.isDarkMode,
-                        hasCustomColors: widget.hasCustomColors,
-                        colors: widget.colors.length == 3
-                            ? widget.colors
-                            : defultColors),
-                  ),
+                  widget.isDisabledAvatar
+                      ? Container()
+                      : Container(
+                          height: width * 0.14,
+                          width: width * 0.14,
+                          decoration: customBoxDecoration(
+                              animation: _animation,
+                              isRectBox: widget.isRectBox,
+                              isPurplishMode: widget.isPurplishMode,
+                              isDarkMode: widget.isDarkMode,
+                              hasCustomColors: widget.hasCustomColors,
+                              colors: widget.colors.length == 3
+                                  ? widget.colors
+                                  : defultColors),
+                        ),
                   SizedBox(
                     width: 20,
                   ),
@@ -246,7 +250,9 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                       children: <Widget>[
                         Container(
                           height: height * 0.008,
-                          width: width * 0.3,
+                          width: widget.isDisabledAvatar
+                              ? width * 0.4
+                              : width * 0.3,
                           decoration: radiusBoxDecoration(
                               animation: _animation,
                               isPurplishMode: widget.isPurplishMode,
@@ -258,7 +264,9 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                         ),
                         Container(
                           height: height * 0.006,
-                          width: width * 0.2,
+                          width: widget.isDisabledAvatar
+                              ? width * 0.3
+                              : width * 0.2,
                           decoration: radiusBoxDecoration(
                               animation: _animation,
                               isPurplishMode: widget.isPurplishMode,
@@ -270,7 +278,9 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                         ),
                         Container(
                           height: height * 0.007,
-                          width: width * 0.4,
+                          width: widget.isDisabledAvatar
+                              ? width * 0.5
+                              : width * 0.4,
                           decoration: radiusBoxDecoration(
                               animation: _animation,
                               isPurplishMode: widget.isPurplishMode,
@@ -349,6 +359,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
 //  ***************************ProfilePageShimmer******************************
 // *[isRectBox] when it is true then it will show Rectancle shape else(false) show circle shape by defult its value false
 // *[isDarkMode]when it is true then it will use black bg color otherwise it use transparent color by defult its value false
+// *[isDisabledAvatar]: when it is true then it will hide circle avatar by default it's false
 // *[beginAlign] it will set the begin value for gradientColor by defult its value Alignment.topLeft
 // *[endAlign]   it will set the end value for gradientColor by defult its value Alignment.bottomRight
 // *[hasBottomBox] when it is true then it will show bottom Rect style Boxes otherwise its hide the Boxes by defult its value false
@@ -361,6 +372,7 @@ class ProfilePageShimmer extends StatefulWidget {
   final bool isRectBox;
   final bool isDarkMode;
   final bool isPurplishMode;
+  final bool isDisabledAvatar;
   final AlignmentGeometry beginAlign;
   final AlignmentGeometry endAlign;
   final bool hasBottomBox;
@@ -380,6 +392,7 @@ class ProfilePageShimmer extends StatefulWidget {
     this.isPurplishMode = false,
     this.hasCustomColors = false,
     this.colors = defultColors,
+    this.isDisabledAvatar = false,
   }) : super(key: key);
   @override
   _ProfilePageShimmerState createState() => _ProfilePageShimmerState();
@@ -423,17 +436,20 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              buildButtomBox(_animation,
-                  height: width,
-                  width: width,
-                  isPurplishMode: widget.isPurplishMode,
-                  isDarkMode: widget.isDarkMode,
-                  isRectBox: widget.isRectBox,
-                  beginAlign: widget.beginAlign,
-                  endAlign: widget.endAlign,
-                  hasCustomColors: widget.hasCustomColors,
-                  colors:
-                      widget.colors.length == 3 ? widget.colors : defultColors),
+              widget.isDisabledAvatar
+                  ? Container()
+                  : buildButtomBox(_animation,
+                      height: width,
+                      width: width,
+                      isPurplishMode: widget.isPurplishMode,
+                      isDarkMode: widget.isDarkMode,
+                      isRectBox: widget.isRectBox,
+                      beginAlign: widget.beginAlign,
+                      endAlign: widget.endAlign,
+                      hasCustomColors: widget.hasCustomColors,
+                      colors: widget.colors.length == 3
+                          ? widget.colors
+                          : defultColors),
               Container(
                 height: height * 0.006,
                 width: width * 0.8,
@@ -1047,6 +1063,8 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
 //  ***************************VideoShimmer******************************
 // *[isRectBox] when it is true then it will show Rectancle shape else(false) show circle shape by defult its value false
 // *[isDarkMode]when it is true then it will use black bg color otherwise it use transparent color by defult its value false
+// *[isDisabledAvatar]: when it is true then it will hide circle avatar by default it's false
+// *[isDisabledButton]: when it's true then it will hide right side button shape shimmer
 // *[beginAlign] it will set the begin value for gradientColor by defult its value Alignment.topLeft
 // *[endAlign]   it will set the end value for gradientColor by defult its value Alignment.bottomRight
 // *[hasBottomBox] when it is true then it will show bottom Rect style Boxes otherwise its hide the Boxes by defult its value false
@@ -1059,6 +1077,8 @@ class ListTileShimmer extends StatefulWidget {
   final bool isRectBox;
   final bool isDarkMode;
   final bool isPurplishMode;
+  final bool isDisabledAvatar;
+  final bool isDisabledButton;
   final AlignmentGeometry beginAlign;
   final AlignmentGeometry endAlign;
   final bool hasBottomBox;
@@ -1078,6 +1098,8 @@ class ListTileShimmer extends StatefulWidget {
     this.isPurplishMode = false,
     this.hasCustomColors = false,
     this.colors = defultColors,
+    this.isDisabledAvatar = false,
+    this.isDisabledButton = false,
   }) : super(key: key);
   @override
   _ListTileShimmerState createState() => _ListTileShimmerState();
@@ -1106,7 +1128,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
     super.dispose();
   }
 
-  // *****************************dispose************************
+  // *****************************dispose*********************  ***
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -1128,19 +1150,21 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Container(
-                            height: width * 0.1,
-                            width: width * 0.1,
-                            decoration: customBoxDecoration(
-                                animation: _animation,
-                                isRectBox: widget.isRectBox,
-                                isPurplishMode: widget.isPurplishMode,
-                                isDarkMode: widget.isDarkMode,
-                                hasCustomColors: widget.hasCustomColors,
-                                colors: widget.colors.length == 3
-                                    ? widget.colors
-                                    : defultColors),
-                          ),
+                          widget.isDisabledAvatar
+                              ? Container()
+                              : Container(
+                                  height: width * 0.1,
+                                  width: width * 0.1,
+                                  decoration: customBoxDecoration(
+                                      animation: _animation,
+                                      isRectBox: widget.isRectBox,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defultColors),
+                                ),
                           SizedBox(
                             width: 12.0,
                           ),
@@ -1150,7 +1174,14 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                             children: <Widget>[
                               Container(
                                 height: width * 0.01,
-                                width: width * 0.5,
+                                width: widget.isDisabledAvatar &&
+                                        widget.isDisabledButton
+                                    ? width * 0.75
+                                    : widget.isDisabledAvatar
+                                        ? width * 0.6
+                                        : widget.isDisabledButton
+                                            ? width * 0.6
+                                            : width * 0.5,
                                 decoration: radiusBoxDecoration(
                                     animation: _animation,
                                     isPurplishMode: widget.isPurplishMode,
@@ -1177,22 +1208,24 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                               ),
                             ],
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              margin: EdgeInsets.only(left: 10.0),
-                              height: width * 0.05,
-                              width: width * 0.12,
-                              decoration: radiusBoxDecoration(
-                                  animation: _animation,
-                                  isPurplishMode: widget.isPurplishMode,
-                                  isDarkMode: widget.isDarkMode,
-                                  hasCustomColors: widget.hasCustomColors,
-                                  colors: widget.colors.length == 3
-                                      ? widget.colors
-                                      : defultColors),
-                            ),
-                          )
+                          widget.isDisabledButton
+                              ? Container()
+                              : Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 10.0),
+                                    height: width * 0.05,
+                                    width: width * 0.12,
+                                    decoration: radiusBoxDecoration(
+                                        animation: _animation,
+                                        isPurplishMode: widget.isPurplishMode,
+                                        isDarkMode: widget.isDarkMode,
+                                        hasCustomColors: widget.hasCustomColors,
+                                        colors: widget.colors.length == 3
+                                            ? widget.colors
+                                            : defultColors),
+                                  ),
+                                )
                         ],
                       )
                     ],
