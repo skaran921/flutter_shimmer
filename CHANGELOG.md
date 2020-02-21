@@ -12,4 +12,8 @@
 
 ## [1.1.1] - TODO: Add release date.
 
-- TODO: Type Mistake remove.
+- TODO: Typo Mistake remove.
+
+## [1.2.0] - TODO: Add release date.
+
+- TODO: disableAvatar option added in ListTileShimmer

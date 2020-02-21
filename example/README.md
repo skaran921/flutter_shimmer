@@ -47,7 +47,8 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
     [isRectBox]: when it is true then it will show Rectancle shape else(false) show circle shape by defult its value false
     [isDarkMode]: when it is true then it will use black bg color otherwise it use transparent color by defult its value false
     [isPurplishMode]: when it is true then it will use little bit purplish bg color otherwise it use transparent color by defult its value false
-
+    [isDisabledAvatar]: when it is true then it will hide circle avatar by default it's false
+    [isDisabledButton]: Note:- this property only used in ListTileShimmer. when it's true then it will hide right side button shape
     [beginAlign]: it will set the begin value for gradientColor by defult its value Alignment.topLeft
     [endAlign]: it will set the end value for gradientColor by defult its value Alignment.bottomRight
     [hasBottomBox]: when it is true then it will show bottom Rect style Boxes otherwise its hide the Boxes by defult its value false

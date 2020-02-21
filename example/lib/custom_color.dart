@@ -27,7 +27,10 @@ class _CustomColorsState extends State<CustomColors> {
         ),
         ListTileShimmer(
           // Step 1: set hasCustomColors property to try
+          isDisabledAvatar: true,
+          isDisabledButton: true,
           hasCustomColors: true,
+
           // Step 2: give 3 colors to colors property
           colors: [
             // Dark color
@@ -89,7 +92,7 @@ class _CustomColorsState extends State<CustomColors> {
           ),
         ),
         ProfileShimmer(
-         
+          // isDisabledAvatar: true,
           hasCustomColors: true,
           colors: [Color(0xFF651fff), Color(0xFF834bff), Color(0xFF4615b2)],
         ),
