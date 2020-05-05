@@ -2,13 +2,21 @@ library flutter_shimmer;
 
 import 'package:flutter/material.dart';
 
-// ************************************DefultColorsList*************************
-const List<Color> defultColors = [
+// ************************************defaultColorsList*************************
+const List<Color> defaultColors = [
   Color.fromRGBO(0, 0, 0, 0.1),
   Color(0x44CCCCCC),
   Color.fromRGBO(0, 0, 0, 0.1)
 ];
-// ************************************DefultColorsList*************************
+// ************************************defaultColorsList*************************
+
+// ************************************defaultColorsListForText*************************
+const List<Color> textdefaultColors = [
+  Color.fromRGBO(0, 0, 0, 0.1),
+  Color(0x44CCCCCC),
+  Color.fromRGBO(0, 0, 0, 0.1),
+];
+// ************************************defaultColorsListForText*************************
 
 //
 // **************************************buildButtomBox**********************************
@@ -36,7 +44,7 @@ Widget buildButtomBox(Animation _animation,
         beginAlign: beginAlign,
         endAlign: endAlign,
         hasCustomColors: hasCustomColors,
-        colors: colors.length == 3 ? colors : defultColors),
+        colors: colors.length == 3 ? colors : defaultColors),
   );
 }
 //
@@ -57,7 +65,7 @@ Decoration customBoxDecoration({
   bool isDarkMode = false,
   bool isPurplishMode = false,
   bool hasCustomColors = false,
-  List<Color> colors = defultColors,
+  List<Color> colors = defaultColors,
   AlignmentGeometry beginAlign = Alignment.topLeft,
   AlignmentGeometry endAlign = Alignment.bottomRight,
 }) {
@@ -99,17 +107,17 @@ Decoration customBoxDecoration({
 // [beginAlign]
 // [endAlign]
 //
-Decoration radiusBoxDecoration({
-  @required Animation animation,
-  bool isDarkMode = false,
-  bool isPurplishMode = false,
-  bool hasCustomColors = false,
-  AlignmentGeometry beginAlign = Alignment.topLeft,
-  AlignmentGeometry endAlign = Alignment.bottomRight,
-  List<Color> colors = defultColors,
-}) {
+Decoration radiusBoxDecoration(
+    {@required Animation animation,
+    bool isDarkMode = false,
+    bool isPurplishMode = false,
+    bool hasCustomColors = false,
+    AlignmentGeometry beginAlign = Alignment.topLeft,
+    AlignmentGeometry endAlign = Alignment.bottomRight,
+    List<Color> colors = defaultColors,
+    double radius = 10.0}) {
   return BoxDecoration(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(radius),
       shape: BoxShape.rectangle,
       gradient: LinearGradient(
           begin: beginAlign,
@@ -139,6 +147,104 @@ Decoration radiusBoxDecoration({
 // **************************************CustomBoxDecoration****************************
 //
 //
+
+// *************************************TextShimmer***************************
+class TextShimmer extends StatefulWidget {
+  final bool isDarkMode;
+  final bool isPurplishMode;
+  final bool hasCustomColors;
+  final List<Color> colors;
+  final AlignmentGeometry beginAlign;
+  final AlignmentGeometry endAlign;
+  final String text;
+  final double fontSize;
+  const TextShimmer({
+    Key key,
+    this.isDarkMode = false,
+    this.isPurplishMode = false,
+    this.hasCustomColors = true,
+    this.colors = textdefaultColors,
+    this.beginAlign = Alignment.topLeft,
+    this.endAlign = Alignment.centerRight,
+    this.text,
+    this.fontSize,
+  }) : super(key: key);
+  @override
+  _TextShimmerState createState() => _TextShimmerState();
+}
+
+class _TextShimmerState extends State<TextShimmer>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<double> _animation;
+
+  // ****************************init*************************
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(duration: Duration(seconds: 1), vsync: this)
+          ..repeat();
+    _animation = Tween<double>(begin: -2, end: 2).animate(CurvedAnimation(
+        curve: Curves.easeInOutSine, parent: _animationController));
+  }
+  // ****************************init*************************
+
+  // *****************************dispose************************
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  // *****************************dispose************************
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: _animation,
+        builder: (BuildContext context, Widget child) {
+          return ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+                begin: widget.beginAlign,
+                end: widget.endAlign,
+                colors: widget.hasCustomColors
+                    ? widget.colors.map((color) {
+                        return color;
+                      }).toList()
+                    : widget.hasCustomColors
+                        ? widget.colors
+                        : [
+                            widget.isPurplishMode
+                                ? Color(0xFF8D71A9)
+                                : widget.isDarkMode
+                                    ? Color(0xFF1D1D1D)
+                                    : Color.fromRGBO(0, 0, 0, 0.1),
+                            widget.isPurplishMode
+                                ? Color(0xFF36265A)
+                                : widget.isDarkMode
+                                    ? Color(0XFF3C4042)
+                                    : Color(0x44CCCCCC),
+                            widget.isPurplishMode
+                                ? Color(0xFF8D71A9)
+                                : widget.isDarkMode
+                                    ? Color(0xFF1D1D1D)
+                                    : Color.fromRGBO(0, 0, 0, 0.1),
+                          ],
+                stops: [
+                  _animation.value + 2,
+                  _animation.value,
+                  _animation.value - 2,
+                ]).createShader(bounds),
+            child: Text(
+              "Testing Shimmer..................",
+              style: TextStyle(
+                fontSize: 40,
+              ),
+            ),
+          );
+        });
+  }
+}
+// *************************************TextShimmer***************************
 
 //
 //  ***************************ProfileShimmer******************************
@@ -176,7 +282,7 @@ class ProfileShimmer extends StatefulWidget {
     this.margin = const EdgeInsets.all(16.0),
     this.isPurplishMode = false,
     this.hasCustomColors = false,
-    this.colors = defultColors,
+    this.colors = defaultColors,
     this.isDisabledAvatar = false,
   }) : super(key: key);
   @override
@@ -237,7 +343,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                   SizedBox(
                     width: 20,
@@ -260,7 +366,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                         Container(
                           height: height * 0.006,
@@ -274,7 +380,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                         Container(
                           height: height * 0.007,
@@ -288,7 +394,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                       ],
                     ),
@@ -312,7 +418,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                         Container(
                           height: height * 0.006,
@@ -324,7 +430,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                         SizedBox(
                           height: 10,
@@ -339,7 +445,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
                               hasCustomColors: widget.hasCustomColors,
                               colors: widget.colors.length == 3
                                   ? widget.colors
-                                  : defultColors),
+                                  : defaultColors),
                         ),
                       ],
                     )
@@ -391,7 +497,7 @@ class ProfilePageShimmer extends StatefulWidget {
     this.margin = const EdgeInsets.all(16.0),
     this.isPurplishMode = false,
     this.hasCustomColors = false,
-    this.colors = defultColors,
+    this.colors = defaultColors,
     this.isDisabledAvatar = false,
   }) : super(key: key);
   @override
@@ -449,7 +555,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                       hasCustomColors: widget.hasCustomColors,
                       colors: widget.colors.length == 3
                           ? widget.colors
-                          : defultColors),
+                          : defaultColors),
               Container(
                 height: height * 0.006,
                 width: width * 0.8,
@@ -460,7 +566,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                     hasCustomColors: widget.hasCustomColors,
                     colors: widget.colors.length == 3
                         ? widget.colors
-                        : defultColors),
+                        : defaultColors),
               ),
               SizedBox(
                 height: 10,
@@ -475,7 +581,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                     hasCustomColors: widget.hasCustomColors,
                     colors: widget.colors.length == 3
                         ? widget.colors
-                        : defultColors),
+                        : defaultColors),
               ),
               widget.hasBottomBox
                   ? Column(
@@ -494,7 +600,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                             buildButtomBox(_animation,
                                 height: width,
                                 width: width,
@@ -506,7 +612,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                             buildButtomBox(_animation,
                                 height: width,
                                 width: width,
@@ -518,7 +624,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                           ],
                         ),
                         Row(
@@ -535,7 +641,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                             buildButtomBox(_animation,
                                 height: width,
                                 width: width,
@@ -547,7 +653,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                             buildButtomBox(_animation,
                                 height: width,
                                 width: width,
@@ -559,7 +665,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                           ],
                         )
                       ],
@@ -610,7 +716,7 @@ class VideoShimmer extends StatefulWidget {
     this.margin = const EdgeInsets.all(16.0),
     this.isPurplishMode = false,
     this.hasCustomColors = false,
-    this.colors = defultColors,
+    this.colors = defaultColors,
   }) : super(key: key);
   @override
   _VideoShimmerState createState() => _VideoShimmerState();
@@ -671,7 +777,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Container(
                         height: height * 0.006,
                         width: width * 0.2,
@@ -682,7 +788,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                             hasCustomColors: widget.hasCustomColors,
                             colors: widget.colors.length == 3
                                 ? widget.colors
-                                : defultColors),
+                                : defaultColors),
                       ),
                     ],
                   ),
@@ -700,7 +806,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Container(
                         height: height * 0.006,
                         width: width * 0.2,
@@ -711,7 +817,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                             hasCustomColors: widget.hasCustomColors,
                             colors: widget.colors.length == 3
                                 ? widget.colors
-                                : defultColors),
+                                : defaultColors),
                       ),
                     ],
                   ),
@@ -729,7 +835,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Container(
                         height: height * 0.006,
                         width: width * 0.2,
@@ -740,7 +846,7 @@ class _VideoShimmerState extends State<VideoShimmer>
                             hasCustomColors: widget.hasCustomColors,
                             colors: widget.colors.length == 3
                                 ? widget.colors
-                                : defultColors),
+                                : defaultColors),
                       ),
                     ],
                   ),
@@ -790,7 +896,7 @@ class YoutubeShimmer extends StatefulWidget {
     this.margin = const EdgeInsets.all(16.0),
     this.isPurplishMode = false,
     this.hasCustomColors = false,
-    this.colors = defultColors,
+    this.colors = defaultColors,
   }) : super(key: key);
   @override
   _YoutubeShimmerState createState() => _YoutubeShimmerState();
@@ -852,7 +958,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -867,7 +973,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                           ),
                           SizedBox(
                             width: 10.0,
@@ -884,7 +990,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                               SizedBox(
                                 height: 6.0,
@@ -899,7 +1005,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                             ],
                           )
@@ -922,7 +1028,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -937,7 +1043,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                           ),
                           SizedBox(
                             width: 10.0,
@@ -954,7 +1060,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                               SizedBox(
                                 height: 6.0,
@@ -969,7 +1075,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                             ],
                           )
@@ -992,7 +1098,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                           hasCustomColors: widget.hasCustomColors,
                           colors: widget.colors.length == 3
                               ? widget.colors
-                              : defultColors),
+                              : defaultColors),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -1007,7 +1113,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                 hasCustomColors: widget.hasCustomColors,
                                 colors: widget.colors.length == 3
                                     ? widget.colors
-                                    : defultColors),
+                                    : defaultColors),
                           ),
                           SizedBox(
                             width: 10.0,
@@ -1024,7 +1130,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                               SizedBox(
                                 height: 6.0,
@@ -1039,7 +1145,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                             ],
                           )
@@ -1056,11 +1162,10 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
     );
   }
 }
+
 //
 //  ***************************ListTileShimmer******************************
 //
-
-//  ***************************VideoShimmer******************************
 // *[isRectBox] when it is true then it will show Rectancle shape else(false) show circle shape by defult its value false
 // *[isDarkMode]when it is true then it will use black bg color otherwise it use transparent color by defult its value false
 // *[isDisabledAvatar]: when it is true then it will hide circle avatar by default it's false
@@ -1086,6 +1191,7 @@ class ListTileShimmer extends StatefulWidget {
   final EdgeInsetsGeometry margin;
   final bool hasCustomColors;
   final List<Color> colors;
+  final double height;
   const ListTileShimmer({
     Key key,
     this.isRectBox = false,
@@ -1097,9 +1203,10 @@ class ListTileShimmer extends StatefulWidget {
     this.margin = const EdgeInsets.all(16.0),
     this.isPurplishMode = false,
     this.hasCustomColors = false,
-    this.colors = defultColors,
+    this.colors = defaultColors,
     this.isDisabledAvatar = false,
     this.isDisabledButton = false,
+    this.height,
   }) : super(key: key);
   @override
   _ListTileShimmerState createState() => _ListTileShimmerState();
@@ -1153,7 +1260,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                           widget.isDisabledAvatar
                               ? Container()
                               : Container(
-                                  height: width * 0.1,
+                                  height: widget.height ?? width * 0.1,
                                   width: width * 0.1,
                                   decoration: customBoxDecoration(
                                       animation: _animation,
@@ -1163,7 +1270,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                       hasCustomColors: widget.hasCustomColors,
                                       colors: widget.colors.length == 3
                                           ? widget.colors
-                                          : defultColors),
+                                          : defaultColors),
                                 ),
                           SizedBox(
                             width: 12.0,
@@ -1173,7 +1280,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                height: width * 0.01,
+                                height: widget.height ?? width * 0.01,
                                 width: widget.isDisabledAvatar &&
                                         widget.isDisabledButton
                                     ? width * 0.75
@@ -1189,13 +1296,13 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                               SizedBox(
                                 height: 6.0,
                               ),
                               Container(
-                                height: width * 0.01,
+                                height: widget.height ?? width * 0.01,
                                 width: width * 0.45,
                                 decoration: radiusBoxDecoration(
                                     animation: _animation,
@@ -1204,7 +1311,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                     hasCustomColors: widget.hasCustomColors,
                                     colors: widget.colors.length == 3
                                         ? widget.colors
-                                        : defultColors),
+                                        : defaultColors),
                               ),
                             ],
                           ),
@@ -1223,7 +1330,7 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                         hasCustomColors: widget.hasCustomColors,
                                         colors: widget.colors.length == 3
                                             ? widget.colors
-                                            : defultColors),
+                                            : defaultColors),
                                   ),
                                 )
                         ],
@@ -1242,3 +1349,495 @@ class _ListTileShimmerState extends State<ListTileShimmer>
 //
 //  ***************************ListTileShimmer******************************
 //
+
+//
+// **************************************PlayStoreShimmer****************************
+//
+// *[beginAlign] it will set the begin value for gradientColor by defult its value Alignment.topLeft
+// *[endAlign]   it will set the end value for gradientColor by defult its value Alignment.bottomRight
+// *[padding] it wiil set the padding of parent container by default its value 16.0 from all side(left,right,top,bottom)
+// *[margin] it wiil set the margin of parent container by default its value 16.0 from all side(left,right,top,bottom)
+class PlayStoreShimmer extends StatefulWidget {
+  final bool isDarkMode;
+  final bool isPurplishMode;
+  final AlignmentGeometry beginAlign;
+  final AlignmentGeometry endAlign;
+  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
+  final bool hasCustomColors;
+  final bool hasBottomFirstLine;
+  final bool hasBottomSecondLine;
+  final List<Color> colors;
+
+  const PlayStoreShimmer(
+      {Key key,
+      this.isDarkMode = false,
+      this.isPurplishMode = false,
+      this.beginAlign = Alignment.topLeft,
+      this.endAlign = Alignment.bottomRight,
+      this.padding = const EdgeInsets.all(16.0),
+      this.margin = const EdgeInsets.all(16.0),
+      this.hasCustomColors = false,
+      this.colors = defaultColors,
+      this.hasBottomFirstLine = true,
+      this.hasBottomSecondLine = true})
+      : super(key: key);
+  @override
+  _PlayStoreShimmerState createState() => _PlayStoreShimmerState();
+}
+
+class _PlayStoreShimmerState extends State<PlayStoreShimmer>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<double> _animation;
+
+  // * init
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(duration: Duration(seconds: 1), vsync: this)
+          ..repeat();
+    _animation = Tween<double>(begin: -2, end: 2).animate(CurvedAnimation(
+        curve: Curves.easeInOutSine, parent: _animationController));
+  }
+
+  // ***dispose
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            margin: widget.margin,
+            padding: widget.padding,
+            color: widget.isDarkMode ? Color(0xFF0B0B0B) : Colors.transparent,
+            child: Row(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: radiusBoxDecoration(
+                          radius: 25.0,
+                          animation: _animation,
+                          isPurplishMode: widget.isPurplishMode,
+                          isDarkMode: widget.isDarkMode,
+                          hasCustomColors: widget.hasCustomColors,
+                          colors: widget.colors.length == 3
+                              ? widget.colors
+                              : defaultColors),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomFirstLine
+                        ? Container(
+                            height: width * 0.024,
+                            width: 110,
+                            decoration: radiusBoxDecoration(
+                                radius: 0.0,
+                                animation: _animation,
+                                isPurplishMode: widget.isPurplishMode,
+                                isDarkMode: widget.isDarkMode,
+                                hasCustomColors: widget.hasCustomColors,
+                                colors: widget.colors.length == 3
+                                    ? widget.colors
+                                    : defaultColors),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomSecondLine
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                              Container(
+                                width: 30,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+                SizedBox(width: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: radiusBoxDecoration(
+                          radius: 25.0,
+                          animation: _animation,
+                          isPurplishMode: widget.isPurplishMode,
+                          isDarkMode: widget.isDarkMode,
+                          hasCustomColors: widget.hasCustomColors,
+                          colors: widget.colors.length == 3
+                              ? widget.colors
+                              : defaultColors),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomFirstLine
+                        ? Container(
+                            height: width * 0.024,
+                            width: 110,
+                            decoration: radiusBoxDecoration(
+                                radius: 0.0,
+                                animation: _animation,
+                                isPurplishMode: widget.isPurplishMode,
+                                isDarkMode: widget.isDarkMode,
+                                hasCustomColors: widget.hasCustomColors,
+                                colors: widget.colors.length == 3
+                                    ? widget.colors
+                                    : defaultColors),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomSecondLine
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                              Container(
+                                width: 30,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+                SizedBox(width: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: radiusBoxDecoration(
+                          radius: 25.0,
+                          animation: _animation,
+                          isPurplishMode: widget.isPurplishMode,
+                          isDarkMode: widget.isDarkMode,
+                          hasCustomColors: widget.hasCustomColors,
+                          colors: widget.colors.length == 3
+                              ? widget.colors
+                              : defaultColors),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomFirstLine
+                        ? Container(
+                            height: width * 0.024,
+                            width: 110,
+                            decoration: radiusBoxDecoration(
+                                radius: 0.0,
+                                animation: _animation,
+                                isPurplishMode: widget.isPurplishMode,
+                                isDarkMode: widget.isDarkMode,
+                                hasCustomColors: widget.hasCustomColors,
+                                colors: widget.colors.length == 3
+                                    ? widget.colors
+                                    : defaultColors),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomSecondLine
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                              Container(
+                                width: 30,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+                SizedBox(width: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: radiusBoxDecoration(
+                          radius: 25.0,
+                          animation: _animation,
+                          isPurplishMode: widget.isPurplishMode,
+                          isDarkMode: widget.isDarkMode,
+                          hasCustomColors: widget.hasCustomColors,
+                          colors: widget.colors.length == 3
+                              ? widget.colors
+                              : defaultColors),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomFirstLine
+                        ? Container(
+                            height: width * 0.024,
+                            width: 110,
+                            decoration: radiusBoxDecoration(
+                                radius: 0.0,
+                                animation: _animation,
+                                isPurplishMode: widget.isPurplishMode,
+                                isDarkMode: widget.isDarkMode,
+                                hasCustomColors: widget.hasCustomColors,
+                                colors: widget.colors.length == 3
+                                    ? widget.colors
+                                    : defaultColors),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomSecondLine
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                              Container(
+                                width: 30,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+                SizedBox(width: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: 110,
+                      width: 110,
+                      decoration: radiusBoxDecoration(
+                          radius: 25.0,
+                          animation: _animation,
+                          isPurplishMode: widget.isPurplishMode,
+                          isDarkMode: widget.isDarkMode,
+                          hasCustomColors: widget.hasCustomColors,
+                          colors: widget.colors.length == 3
+                              ? widget.colors
+                              : defaultColors),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomFirstLine
+                        ? Container(
+                            height: width * 0.024,
+                            width: 110,
+                            decoration: radiusBoxDecoration(
+                                radius: 0.0,
+                                animation: _animation,
+                                isPurplishMode: widget.isPurplishMode,
+                                isDarkMode: widget.isDarkMode,
+                                hasCustomColors: widget.hasCustomColors,
+                                colors: widget.colors.length == 3
+                                    ? widget.colors
+                                    : defaultColors),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    widget.hasBottomSecondLine
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                              Container(
+                                width: 30,
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  height: width * 0.024,
+                                  width: 40,
+                                  decoration: radiusBoxDecoration(
+                                      radius: 0.0,
+                                      animation: _animation,
+                                      isPurplishMode: widget.isPurplishMode,
+                                      isDarkMode: widget.isDarkMode,
+                                      hasCustomColors: widget.hasCustomColors,
+                                      colors: widget.colors.length == 3
+                                          ? widget.colors
+                                          : defaultColors),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+// **************************************PlayStoreShimmer****************************

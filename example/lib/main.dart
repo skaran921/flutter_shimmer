@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
                             ),
                           ),
                           ListTileShimmer(
+
                               // isPurplishMode: true,
                               ),
                           Divider(),

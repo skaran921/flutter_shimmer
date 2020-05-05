@@ -14,10 +14,66 @@ class _CustomColorsState extends State<CustomColors> {
         Container(
           padding: EdgeInsets.all(16.0),
           child: Text(
+            "PalyStoreShimmer(Deafult)",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        PlayStoreShimmer(),
+        Container(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            "PalyStoreShimmer(hasBottomSecondLine:false)",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+
+        PlayStoreShimmer(
+          hasBottomSecondLine: false,
+        ),
+        Container(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            "PalyStoreShimmer(hasBottomFirstLine:false)",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        PlayStoreShimmer(
+          hasBottomFirstLine: false,
+        ),
+        Container(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            "PalyStoreShimmer(hasBottomFirstLine:false,hasBottomSecondLine: false)",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        PlayStoreShimmer(
+          hasBottomFirstLine: false,
+          hasBottomSecondLine: false,
+        ),
+        Divider(),
+
+        Container(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
             "With hasCustomColors:true option",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
           ),
         ),
+        // Container(
+        //   padding: EdgeInsets.all(16.0),
+        //   child: Text(
+        //     "TextShimmer",
+        //     style: TextStyle(fontWeight: FontWeight.bold),
+        //   ),
+        // ),
+        // Center(
+        //   child: TextShimmer(
+        //     // isPurplishMode: true,
+        //     text: "Slide_to_open_lock",
+        //     fontSize: 30,
+        //   ),
+        // ),
         Container(
           padding: EdgeInsets.all(16.0),
           child: Text(
