@@ -17,3 +17,7 @@
 ## [1.2.0] - TODO: Add release date.
 
 - TODO: disableAvatar option added in ListTileShimmer
+
+## [1.3.0] - TODO: Add release date.
+
+- TODO: PlayStoreShimmer Added

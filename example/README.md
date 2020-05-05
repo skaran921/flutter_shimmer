@@ -6,6 +6,7 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
 
 | # Shimmer Mode                | # Screenshot              | # Code Example                                         |
 | ----------------------------- | ------------------------- | ------------------------------------------------------ |
+| # Play Store Shimmer          | ![](../screenshots/6.gif) | PlayStoreShimmer()                                     |
 | # Light Mode Shimmer          | ![](../screenshots/1.gif) | ListTileShimmer()                                      |
 | # Dark Mode Shimmer           | ![](../screenshots/2.gif) | ListTileShimmer(isDarkMode: true)                      |
 | # Purplish Mode Shimmer       | ![](../screenshots/3.gif) | ListTileShimmer(isPurplishMode: true)                  |
@@ -227,6 +228,56 @@ flutter_shimmer package for creating Shimmer effect that indicate a loading stat
  7. Combination of all options
 
     ListTileShimmer(
+      isPurplishMode: true,
+      hasBottomLines: true,
+      isDarkMode: true,
+   ),
+```
+
+# 5. PlayStoreShimmer
+
+```
+  1. Light Mode
+    PlayStoreShimmer(),
+
+  2. Dark Mode
+    PlayStoreShimmer( isDarkMode: true,),
+
+  3. PurplishMode with light Background
+
+     PlayStoreShimmer(
+      isPurplishMode: true,
+   ),
+
+  5. PurplishMode with dark Background
+
+     PlayStoreShimmer(
+      isPurplishMode: true,
+      isDarkMode:true
+   ),
+
+ 6. With Bottom Lines:
+         note:   By deafult both lines are true
+
+   a) it will remove only first bottom line
+    ListTileShimmer(
+      hasBottomFirstLine:false
+     ),
+
+  b) it will remove only second bottom line
+     ListTileShimmer(
+      hasBottomSecondLine:false
+     ),
+
+  c) it will remove both bottom line
+     ListTileShimmer(
+      hasBottomFirstLine:false,
+      hasBottomSecondLine:false
+     ),
+
+ 7. With Multiple options
+
+    PlayStoreShimmer(
       isPurplishMode: true,
       hasBottomLines: true,
       isDarkMode: true,
