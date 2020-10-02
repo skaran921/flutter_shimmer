@@ -1368,6 +1368,7 @@ class PlayStoreShimmer extends StatefulWidget {
   final bool hasBottomFirstLine;
   final bool hasBottomSecondLine;
   final List<Color> colors;
+  final ScrollPhysics physics;
 
   const PlayStoreShimmer(
       {Key key,
@@ -1380,7 +1381,8 @@ class PlayStoreShimmer extends StatefulWidget {
       this.hasCustomColors = false,
       this.colors = defaultColors,
       this.hasBottomFirstLine = true,
-      this.hasBottomSecondLine = true})
+      this.hasBottomSecondLine = true,
+      this.physics = const BouncingScrollPhysics()})
       : super(key: key);
   @override
   _PlayStoreShimmerState createState() => _PlayStoreShimmerState();
@@ -1417,6 +1419,7 @@ class _PlayStoreShimmerState extends State<PlayStoreShimmer>
       builder: (context, child) {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          physics: widget.physics,
           child: Container(
             margin: widget.margin,
             padding: widget.padding,
