@@ -1,0 +1,4 @@
+#Tue Mar 09 15:46:54 IST 2021
+base.0=D\:\\bootcamp\\flutter_shimmer\\example\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

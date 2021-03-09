@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     setState(() {
-      this.isCustomColors = true;
+      this.isCustomColors = false;
     });
   }
 
@@ -51,9 +51,9 @@ class _MyAppState extends State<MyApp> {
                             ),
                           ),
                           ListTileShimmer(
-
-                              // isPurplishMode: true,
-                              ),
+                            height: 20,
+                            // isPurplishMode: true,
+                          ),
                           Divider(),
                           Container(
                             padding: EdgeInsets.all(16.0),
