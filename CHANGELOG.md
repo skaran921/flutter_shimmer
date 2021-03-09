@@ -21,3 +21,7 @@
 ## [1.3.0] - TODO: Add release date.
 
 - TODO: PlayStoreShimmer Added
+
+## [2.0.0] - TODO: Add release date.
+
+- TODO: Null Safety

@@ -2,7 +2,7 @@ library flutter_shimmer;
 
 import 'package:flutter/material.dart';
 
-// ************************************defaultColorsList*************************
+// ****************************x1x********defaultColorsList*************************
 const List<Color> defaultColors = [
   Color.fromRGBO(0, 0, 0, 0.1),
   Color(0x44CCCCCC),
@@ -22,15 +22,15 @@ const List<Color> textdefaultColors = [
 // **************************************buildButtomBox**********************************
 //
 Widget buildButtomBox(Animation _animation,
-    {@required double width,
-    @required double height,
-    @required bool isDarkMode,
-    @required bool isRectBox,
-    @required bool isPurplishMode,
-    @required AlignmentGeometry beginAlign,
-    @required AlignmentGeometry endAlign,
-    @required bool hasCustomColors,
-    @required List<Color> colors,
+    {required double width,
+    required double height,
+    required bool isDarkMode,
+    required bool isRectBox,
+    required bool isPurplishMode,
+    required AlignmentGeometry beginAlign,
+    required AlignmentGeometry endAlign,
+    required bool hasCustomColors,
+    required List<Color> colors,
     bool isVideoShimmer = false}) {
   return Container(
     margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -60,7 +60,7 @@ Widget buildButtomBox(Animation _animation,
 // [endAlign]
 //
 Decoration customBoxDecoration({
-  @required Animation animation,
+  required Animation animation,
   bool isRectBox = false,
   bool isDarkMode = false,
   bool isPurplishMode = false,
@@ -86,7 +86,9 @@ Decoration customBoxDecoration({
                           : Color.fromRGBO(0, 0, 0, 0.1),
                   isPurplishMode
                       ? Color(0xFF36265A)
-                      : isDarkMode ? Color(0XFF3C4042) : Color(0x44CCCCCC),
+                      : isDarkMode
+                          ? Color(0XFF3C4042)
+                          : Color(0x44CCCCCC),
                   isPurplishMode
                       ? Color(0xFF8D71A9)
                       : isDarkMode
@@ -108,7 +110,7 @@ Decoration customBoxDecoration({
 // [endAlign]
 //
 Decoration radiusBoxDecoration(
-    {@required Animation animation,
+    {required Animation animation,
     bool isDarkMode = false,
     bool isPurplishMode = false,
     bool hasCustomColors = false,
@@ -134,7 +136,9 @@ Decoration radiusBoxDecoration(
                           : Color.fromRGBO(0, 0, 0, 0.1),
                   isPurplishMode
                       ? Color(0xFF36265A)
-                      : isDarkMode ? Color(0XFF3C4042) : Color(0x44CCCCCC),
+                      : isDarkMode
+                          ? Color(0XFF3C4042)
+                          : Color(0x44CCCCCC),
                   isPurplishMode
                       ? Color(0xFF8D71A9)
                       : isDarkMode
@@ -156,10 +160,10 @@ class TextShimmer extends StatefulWidget {
   final List<Color> colors;
   final AlignmentGeometry beginAlign;
   final AlignmentGeometry endAlign;
-  final String text;
-  final double fontSize;
+  final String? text;
+  final double? fontSize;
   const TextShimmer({
-    Key key,
+    Key? key,
     this.isDarkMode = false,
     this.isPurplishMode = false,
     this.hasCustomColors = true,
@@ -175,8 +179,8 @@ class TextShimmer extends StatefulWidget {
 
 class _TextShimmerState extends State<TextShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -201,7 +205,7 @@ class _TextShimmerState extends State<TextShimmer>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animation,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
                 begin: widget.beginAlign,
@@ -272,7 +276,7 @@ class ProfileShimmer extends StatefulWidget {
   final EdgeInsetsGeometry margin;
 
   const ProfileShimmer({
-    Key key,
+    Key? key,
     this.isRectBox = false,
     this.isDarkMode = false,
     this.beginAlign = Alignment.topLeft,
@@ -291,8 +295,8 @@ class ProfileShimmer extends StatefulWidget {
 
 class _ProfileShimmerState extends State<ProfileShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -319,7 +323,7 @@ class _ProfileShimmerState extends State<ProfileShimmer>
     double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Container(
           margin: widget.margin,
           padding: widget.padding,
@@ -487,7 +491,7 @@ class ProfilePageShimmer extends StatefulWidget {
   final bool hasCustomColors;
   final List<Color> colors;
   const ProfilePageShimmer({
-    Key key,
+    Key? key,
     this.isRectBox = false,
     this.isDarkMode = false,
     this.beginAlign = Alignment.topLeft,
@@ -506,8 +510,8 @@ class ProfilePageShimmer extends StatefulWidget {
 
 class _ProfilePageShimmerState extends State<ProfilePageShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -534,7 +538,7 @@ class _ProfilePageShimmerState extends State<ProfilePageShimmer>
     double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Container(
           margin: widget.margin,
           padding: widget.padding,
@@ -706,7 +710,7 @@ class VideoShimmer extends StatefulWidget {
   final bool hasCustomColors;
   final List<Color> colors;
   const VideoShimmer({
-    Key key,
+    Key? key,
     this.isRectBox = false,
     this.isDarkMode = false,
     this.beginAlign = Alignment.topLeft,
@@ -724,8 +728,8 @@ class VideoShimmer extends StatefulWidget {
 
 class _VideoShimmerState extends State<VideoShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -752,7 +756,7 @@ class _VideoShimmerState extends State<VideoShimmer>
     double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Container(
           margin: widget.margin,
           padding: widget.padding,
@@ -886,7 +890,7 @@ class YoutubeShimmer extends StatefulWidget {
   final bool hasCustomColors;
   final List<Color> colors;
   const YoutubeShimmer({
-    Key key,
+    Key? key,
     this.isRectBox = false,
     this.isDarkMode = false,
     this.beginAlign = Alignment.topLeft,
@@ -904,8 +908,8 @@ class YoutubeShimmer extends StatefulWidget {
 
 class _YoutubeShimmerState extends State<YoutubeShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -932,7 +936,7 @@ class _YoutubeShimmerState extends State<YoutubeShimmer>
     // double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Container(
           margin: widget.margin,
           padding: widget.padding,
@@ -1193,7 +1197,7 @@ class ListTileShimmer extends StatefulWidget {
   final List<Color> colors;
   final double height;
   const ListTileShimmer({
-    Key key,
+    Key? key,
     this.isRectBox = false,
     this.isDarkMode = false,
     this.beginAlign = Alignment.topLeft,
@@ -1206,7 +1210,7 @@ class ListTileShimmer extends StatefulWidget {
     this.colors = defaultColors,
     this.isDisabledAvatar = false,
     this.isDisabledButton = false,
-    this.height,
+    this.height = 0,
   }) : super(key: key);
   @override
   _ListTileShimmerState createState() => _ListTileShimmerState();
@@ -1214,8 +1218,8 @@ class ListTileShimmer extends StatefulWidget {
 
 class _ListTileShimmerState extends State<ListTileShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // ****************************init*************************
   @override
@@ -1242,7 +1246,9 @@ class _ListTileShimmerState extends State<ListTileShimmer>
     // double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
+        var newHeight = widget.height * 2;
+        var circleHeight = widget.height * 3;
         return Container(
           margin: widget.margin,
           padding: widget.padding,
@@ -1260,8 +1266,12 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                           widget.isDisabledAvatar
                               ? Container()
                               : Container(
-                                  height: widget.height ?? width * 0.1,
-                                  width: width * 0.1,
+                                  height: widget.height == 0
+                                      ? width * 0.1
+                                      : circleHeight,
+                                  width: widget.height == 0
+                                      ? width * 0.1
+                                      : circleHeight,
                                   decoration: customBoxDecoration(
                                       animation: _animation,
                                       isRectBox: widget.isRectBox,
@@ -1280,7 +1290,9 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                height: widget.height ?? width * 0.01,
+                                height: widget.height == 0
+                                    ? width * 0.01
+                                    : widget.height,
                                 width: widget.isDisabledAvatar &&
                                         widget.isDisabledButton
                                     ? width * 0.75
@@ -1302,7 +1314,9 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                 height: 6.0,
                               ),
                               Container(
-                                height: widget.height ?? width * 0.01,
+                                height: widget.height == 0
+                                    ? width * 0.01
+                                    : widget.height,
                                 width: width * 0.45,
                                 decoration: radiusBoxDecoration(
                                     animation: _animation,
@@ -1321,7 +1335,9 @@ class _ListTileShimmerState extends State<ListTileShimmer>
                                   alignment: Alignment.centerRight,
                                   child: Container(
                                     margin: EdgeInsets.only(left: 10.0),
-                                    height: width * 0.05,
+                                    height: widget.height == 0
+                                        ? width * 0.05
+                                        : newHeight,
                                     width: width * 0.12,
                                     decoration: radiusBoxDecoration(
                                         animation: _animation,
@@ -1371,7 +1387,7 @@ class PlayStoreShimmer extends StatefulWidget {
   final ScrollPhysics physics;
 
   const PlayStoreShimmer(
-      {Key key,
+      {Key? key,
       this.isDarkMode = false,
       this.isPurplishMode = false,
       this.beginAlign = Alignment.topLeft,
@@ -1390,8 +1406,8 @@ class PlayStoreShimmer extends StatefulWidget {
 
 class _PlayStoreShimmerState extends State<PlayStoreShimmer>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // * init
   @override
