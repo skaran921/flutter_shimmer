@@ -1,6 +1,6 @@
 // import 'package:example/text.dart';
-import 'package:example/darkMode.dart';
-import 'package:example/purplishMode.dart';
+import './darkMode.dart';
+import './purplishMode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'custom_color.dart';
@@ -43,6 +43,26 @@ class _MyAppState extends State<MyApp> {
                     ? DarkMode()
                     : ListView(
                         children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text(
+                              "ListTileShimmer ( onlyWithProfilePicture:true )",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              ListTileShimmer(
+                                onlyShowProfilePicture: true,
+                                // isRectBox: true,
+                                height: 20,
+                                // isPurplishMode: true,
+                              ),
+                            ],
+                          ),
+                          Divider(),
                           Container(
                             padding: EdgeInsets.all(16.0),
                             child: Text(
@@ -90,11 +110,7 @@ class _MyAppState extends State<MyApp> {
                             // isPurplishMode: true,
                             // isDarkMode: true,
                             hasCustomColors: true,
-                            colors: [
-                              Color(0xFF651fff),
-                              Color(0xFF834bff),
-                              Color(0xFF4615b2)
-                            ],
+                            colors: [Color(0xFF651fff), Color(0xFF834bff), Color(0xFF4615b2)],
                           ),
                           Divider(),
                           Container(

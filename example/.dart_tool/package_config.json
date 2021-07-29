@@ -39,9 +39,9 @@
     },
     {
       "name": "cupertino_icons",
-      "rootUri": "file:///C:/Users/shubh/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-0.1.3",
+      "rootUri": "file:///C:/Users/shubh/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "fake_async",
@@ -146,7 +146,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-03-09T08:03:15.039842Z",
+  "generated": "2021-07-29T11:29:55.583150Z",
   "generator": "pub",
   "generatorVersion": "2.12.0"
 }

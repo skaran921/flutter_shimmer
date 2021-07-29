@@ -22,6 +22,10 @@
 
 - TODO: PlayStoreShimmer Added
 
-## [2.0.0] - TODO: Add release date.
+## [2.0.0-prerelease-nullsafety] - TODO: Add release date.
 
 - TODO: Null Safety
+
+## [2.1.0] - TODO: Add release date.
+
+- Null Safety
