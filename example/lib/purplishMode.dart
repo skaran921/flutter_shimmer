@@ -95,6 +95,5 @@ class _PurplishModeState extends State<PurplishMode> {
         ),
       ],
     );
-    ;
   }
 }

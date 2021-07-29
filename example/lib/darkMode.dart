@@ -98,6 +98,5 @@ class _DarkModeState extends State<DarkMode> {
         ),
       ],
     );
-    ;
   }
 }
