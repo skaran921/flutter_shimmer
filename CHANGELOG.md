@@ -12,7 +12,7 @@
 
 ## [1.1.1] - TODO: Add release date.
 
-- TODO: Typo Mistake remove.
+- TODO: Typo error removed.
 
 ## [1.2.0] - TODO: Add release date.
 
@@ -29,3 +29,7 @@
 ## [2.1.0] - TODO: Add release date.
 
 - Null Safety
+
+## [2.1.1] - TODO: Add release date.
+
+- Dart Code Format
