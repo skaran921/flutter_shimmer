@@ -1,6 +1,6 @@
 name: flutter_shimmer
 description: it creating Shimmer effect that indicate a loading status, so instead of using ProgressBar or usual loader use Shimmer for a better design and user interface.
-version: 2.1.1
+version: 2.1.2
 # author: Karan Soni <skaran921@gmail.com>
 
 homepage: https://github.com/skaran921/flutter_shimmer

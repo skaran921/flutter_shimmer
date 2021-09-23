@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
                           Row(
                             children: [
                               ListTileShimmer(
+                                bgColor: Colors.yellow,
                                 onlyShowProfilePicture: true,
                                 // isRectBox: true,
                                 height: 20,
@@ -71,6 +72,8 @@ class _MyAppState extends State<MyApp> {
                             ),
                           ),
                           ListTileShimmer(
+                            bgColor: Colors.pink,
+
                             height: 20,
                             // isPurplishMode: true,
                           ),
@@ -110,11 +113,7 @@ class _MyAppState extends State<MyApp> {
                             // isPurplishMode: true,
                             // isDarkMode: true,
                             hasCustomColors: true,
-                            colors: [
-                              Color(0xFF651fff),
-                              Color(0xFF834bff),
-                              Color(0xFF4615b2)
-                            ],
+                            colors: [Color(0xFF651fff), Color(0xFF834bff), Color(0xFF4615b2)],
                           ),
                           Divider(),
                           Container(

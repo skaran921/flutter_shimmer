@@ -33,3 +33,7 @@
 ## [2.1.1] - TODO: Add release date.
 
 - Dart Code Format
+
+## [2.1.2] - TODO: Add release date.
+
+- bgColor Property Added
